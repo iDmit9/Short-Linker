@@ -78,13 +78,15 @@ router.post(
                 return res.status(400).json({message: 'Wrong password. Try again'})
             }
 
+            const expTime = 3600 //second
+
             const token = jwt.sign(
                 {userId: user.id},
                 config.get('jwtSecret'),
-                {expiresIn: '1h'}
+                {expiresIn: expTime}
             )
 
-            res.json({ token, userId: user.id})  
+            res.json({ token, userId: user.id, expTime})  
     
         } catch (e) {
             res.status(500).json({message: 'Something went wrong, try again'})

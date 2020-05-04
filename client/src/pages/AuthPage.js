@@ -12,7 +12,6 @@ export const AuthPage = () => {
     })
 
     useEffect(()=> {
-        console.log('Error', error)
         message(error)
         clearError()
     }, [error, message, clearError])
@@ -27,9 +26,7 @@ export const AuthPage = () => {
 
     const registerHandler = async () => {
         try {
-            //console.log(form)
             const data = await request('/api/auth/register', 'POST', {...form})
-            //console.log('Data', data)
             message(data.message)
         } catch (e) {
             
@@ -39,7 +36,8 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', {...form})
-            auth.login(data.token, data.userId)
+            const expirationDate = new Date(new Date().getTime() + data.expTime * 1000)
+            auth.login(data.token, data.userId, expirationDate)
             message(data.message)
         } catch (e) {
             
