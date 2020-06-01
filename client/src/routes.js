@@ -5,22 +5,28 @@ import { CreatePage } from './pages/CreatePage'
 import { DetailPage } from './pages/DetailPage'
 import { AuthPage } from './pages/AuthPage'
 
+import { Navbar } from './components/Navbar';
+import { Layout } from 'antd';
+
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
         return (
-            <Switch>
-                <Route path='/links' exact>
-                    <LinksPage />
-                </Route>
-                <Route path='/create' exact>
-                    <CreatePage />
-                </Route>
-                <Route path='/detail/:id'>
-                    <DetailPage />
-                </Route>
+            <Layout>
+                <Navbar />
+                <Switch>
+                    <Route path='/links' exact>
+                        <LinksPage />
+                    </Route>
+                    <Route path='/create' exact>
+                        <CreatePage />
+                    </Route>
+                    <Route path='/detail/:id'>
+                        <DetailPage />
+                    </Route>
 
-                <Redirect to='/create' />
-            </Switch>
+                    <Redirect to='/create' />
+                </Switch>
+            </Layout>
         )
     }
 

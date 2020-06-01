@@ -3,103 +3,132 @@ import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
 import { AuthContext } from '../context/AuthContext'
 
+import { Form, Input, Button, Card, Row, Layout } from 'antd';
+
 export const AuthPage = () => {
-    const auth = useContext(AuthContext)
-    const message = useMessage()
-    const {loading, error, request, clearError} = useHttp()
-    const [form, setForm] = useState({
-        email: '', password: ''
-    })
+  const auth = useContext(AuthContext)
+  const message = useMessage()
+  const { loading, error, request, clearError } = useHttp()
+  const [form, setForm] = useState({
+    email: '', password: ''
+  })
 
-    useEffect(()=> {
-        message(error)
-        clearError()
-    }, [error, message, clearError])
+  useEffect(() => {
+    message(error)
+    clearError()
+  }, [error, message, clearError])
 
-    useEffect(() => {
-        window.M.updateTextFields()
-    }, [])
+  const changeHandler = event => {
+    setForm({ ...form, [event.target.name]: event.target.value })
+    console.log("event.target.name", event.target.name)
+    console.log("event.target.value", event.target.value)
+  }
 
-    const changeHandler = event => {
-        setForm({ ...form, [event.target.name]: event.target.value})
+  const registerHandler = async () => {
+    try {
+      const data = await request('/api/auth/register', 'POST', { ...form })
+      message(data.message)
+    } catch (e) {
+
     }
+  }
 
-    const registerHandler = async () => {
-        try {
-            const data = await request('/api/auth/register', 'POST', {...form})
-            message(data.message)
-        } catch (e) {
-            
-        }
+  const loginHandler = async () => {
+    try {
+      const data = await request('/api/auth/login', 'POST', { ...form })
+      const expirationDate = new Date(new Date().getTime() + data.expTime * 1000)
+      auth.login(data.token, data.userId, expirationDate)
+      message(data.message)
+    } catch (e) {
+
     }
+  }
 
-    const loginHandler = async () => {
-        try {
-            const data = await request('/api/auth/login', 'POST', {...form})
-            const expirationDate = new Date(new Date().getTime() + data.expTime * 1000)
-            auth.login(data.token, data.userId, expirationDate)
-            message(data.message)
-        } catch (e) {
-            
-        }
-    }
+  const layout = {
+    labelCol: { span: 8, },
+    wrapperCol: { span: 16, },
+  }
 
-    return (
-        <div className='row'>
-            <div className="col s6 offset-s3">
-                <h1>Short Linker</h1> 
-                <div className="card blue darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">Authorization</span>
-                        <div>
+  const tailLayout = {
+    wrapperCol: {
+      offset: 8,
+      span: 16,
+    },
+  }
 
-                            <div className="input-field">
-                                <input 
-                                    placeholder="Enter email" 
-                                    id="email" 
-                                    type="text" 
-                                    name="email"
-                                    className="yellow-input"
-                                    value={form.email}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>       
+  return (
+    <Layout className='auth-layout' >
+      <Row justify="center" align="middle">
+        <Card
+          title="Authorization"
+          bordered={true}
+          className='authCard'
+        >
+          <Form
+            {...layout}
+            name="basic"
+          >
+            <Form.Item
+              name="emailLabel"
+              label="E-mail"
+              rules={[
+                {
+                  type: 'email',
+                  message: 'Please enter a valid E-mail!',
+                }, {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input
+                id="email"
+                name="email"
+                value={form.email}
+                onChange={changeHandler}
+              />
+            </Form.Item>
+            <Form.Item
+              name="passwordLabel"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                }, {
+                  min: 6,
+                  message: 'Minimum length 6 characters!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password
+                id="password"
+                name="password"
+                value={form.password}
+                onChange={changeHandler}
+              />
+            </Form.Item>
 
-                            <div className="input-field">
-                                <input 
-                                    placeholder="Enter password" 
-                                    id="password" 
-                                    type="password" 
-                                    name="password"
-                                    className="yellow-input"
-                                    value={form.password}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="password">Password</label>
-                            </div>       
-
-                        </div>    
-                    </div>
-                    <div className="card-action">
-                        <button 
-                            className='btn yellow darken-4' 
-                            style={{marginRight: 10}}
-                            disabled={loading}
-                            onClick={loginHandler}
-                        >
-                            Log In
-                        </button>
-                        <button 
-                            className='btn grey lighten-1 black-text'
-                            onClick={registerHandler}
-                            disabled={loading}
-                        >
-                            Sign Up
-                        </button>                       
-                    </div>
-                </div>   
-            </div>   
-        </div>
-    )
+            <Form.Item {...tailLayout}>
+              <Button
+                type="primary"
+                disabled={loading}
+                onClick={loginHandler}
+              >
+                Log In
+              </Button>
+              <Button
+                onClick={registerHandler}
+                disabled={loading}
+              >
+                Sign Up
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </Row>
+    </Layout>
+  )
 }

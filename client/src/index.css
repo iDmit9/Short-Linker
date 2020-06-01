@@ -1,19 +1,87 @@
-@import "~materialize-css/dist/css/materialize.min.css";
+@import "~antd/dist/antd.css";
 
-input.yellow-input {
-    border-bottom: 1px solid #fff!important;
-    box-shadow: 0 1px 0 0 #fff!important;
+body {    
+    background: #f0f2f5;
 }
 
-input.yellow-input + label {
-    color: #fff!important;
+#root {    
+    display: flex;   
+    min-height: 100vh;
+    flex-direction: column;
+ }
+
+ .ant-layout{
+     min-width: 450px;
+ }
+
+.authCard{    
+    max-width: 450;
+    /* background: linear-gradient(120deg,rgba(143, 201, 251, 0.5),rgba(143, 201, 251, 0.2));; */
 }
 
-input.yellow-input:focus + label {
-    color: #ffeb3b!important;
+.authCard:hover {
+    box-shadow: 4px 4px 40px rgba(143, 201, 251, 0.6);    
 }
 
-input.yellow-input:focus {
-    border-bottom: 1px solid #ffeb3b!important;
-    box-shadow: 0 1px 0 0 #ffeb3b!important;
+.ant-btn {
+    margin-right: 8px; 
+}
+
+.ant-row{
+    width: 100%;
+}
+
+
+.container {    
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-layout {
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar {
+    box-shadow: 0 1px 3px 0;
+}
+
+.brand-logo {
+    color: #1890ff;
+    padding-right: 2em;
+}
+
+.menu-row {
+    margin-left: auto;
+}
+
+.ant-menu-item a.active {
+    color: #1890ff ;
+}
+
+.ant-menu-item-active {    
+    color: #fff !important;
+    background: #1890ff !important;
+}
+
+.link-card-title {
+    font-size: 28px;
+    margin-top: 2rem;
+}
+
+.ant-layout-content {
+    padding: 2rem 50px;
+}
+
+.centeredSpinnerAntd{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+}
+
+@media screen and (min-width: 680px) {
+    
 }
