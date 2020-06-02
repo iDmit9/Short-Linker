@@ -22,7 +22,6 @@ export const Navbar = () => {
           theme="dark"
           mode="horizontal"
           selectable={false}
-          // defaultSelectedKeys={['1']}
         >
           <Menu.Item key="1"><NavLink to="/create">Create</NavLink></Menu.Item>
           <Menu.Item key="2"><NavLink to="/links">Links</NavLink></Menu.Item>

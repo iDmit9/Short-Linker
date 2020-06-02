@@ -16,7 +16,6 @@ body {
 
 .authCard{    
     max-width: 450;
-    /* background: linear-gradient(120deg,rgba(143, 201, 251, 0.5),rgba(143, 201, 251, 0.2));; */
 }
 
 .authCard:hover {
@@ -80,8 +79,4 @@ body {
     margin-bottom: 20px;
     padding: 30px 50px;
     margin: 20px 0;
-}
-
-@media screen and (min-width: 680px) {
-    
 }

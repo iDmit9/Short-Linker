@@ -20,8 +20,6 @@ export const AuthPage = () => {
 
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
-    console.log("event.target.name", event.target.name)
-    console.log("event.target.value", event.target.value)
   }
 
   const registerHandler = async () => {
@@ -69,7 +67,7 @@ export const AuthPage = () => {
             name="basic"
           >
             <Form.Item
-              name="emailLabel"
+              name="email"
               label="E-mail"
               rules={[
                 {

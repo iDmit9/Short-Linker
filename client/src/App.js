@@ -20,12 +20,7 @@ function App() {
       token, login, logout, userId, isAuthenticated, expiredAt
     }}>
       <Router>
-        {/* <Layout> */}
-          {/* <div className='container'> */}
-          {/* {isAuthenticated && <Navbar />}           */}
             {routes}
-          {/* </div> */}
-        {/* </Layout> */}
       </Router>
     </AuthContext.Provider>
   );

@@ -18,7 +18,6 @@ export const useAuth = () => {
 
     const onExpiredLogout = useCallback((expDate) => {      
         if (expDate === null) {
-            console.log('Stil not fetch time')
             return
         }
 
