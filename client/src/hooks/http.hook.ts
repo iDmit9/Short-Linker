@@ -2,11 +2,10 @@ import { useState, useCallback } from "react"
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
-
-    const request = useCallback( async (url, method = 'GET', body = null, headers = {}) => {        
+    const [error, setError] = useState<string | null>(null)
+    
+    const request = useCallback( async (url: string, method = 'GET', body = null, headers = {}) => {        
         setLoading(true)
-        
         try {
             if(body) {
                 body = JSON.stringify(body)
@@ -14,8 +13,13 @@ export const useHttp = () => {
             }
 
             const response = await fetch(url, {method, body, headers})
-            const data = await response.json()
+            
+            console.log('data response',response)
 
+            // because its universal function I think shoud use type any 
+            const data: any  = await response.json()
+
+            console.log('data ',data)
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong')    
             }
