@@ -13,13 +13,10 @@ export const useHttp = () => {
             }
 
             const response = await fetch(url, {method, body, headers})
-            
-            console.log('data response',response)
 
             // because its universal function I think shoud use type any 
             const data: any  = await response.json()
-
-            console.log('data ',data)
+            
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong')    
             }

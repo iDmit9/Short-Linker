@@ -1,12 +1,18 @@
 import { useState, useCallback, useEffect } from "react"
 
-const storageName = 'userData'
+let storageName: string = 'userData' 
+
+type StorageDataType = {
+    token: string, 
+    userId: string, 
+    expired: any //<Date| string | number | null>
+}
 
 export const useAuth = () => {
-    const [token, setToken] = useState(null)
+    const [token, setToken] = useState<string | null>(null)
     const [ready, setReady] = useState(false)
-    const [userId, setUserId] = useState(null)
-    const [expiredAt, setExpiredAt] = useState(null)
+    const [userId, setUserId] = useState<string | null>(null)
+    const [expiredAt, setExpiredAt] = useState<any>(null) //<Date| string | number | null>
 
     const logout = useCallback(() => {
         setToken(null)
@@ -16,12 +22,12 @@ export const useAuth = () => {
         localStorage.removeItem(storageName)
     }, [])
 
-    const onExpiredLogout = useCallback((expDate) => {      
+    const onExpiredLogout = useCallback((expDate: any) => {      
         if (expDate === null) {
             return
         }
 
-        const expTimer = new Date(expDate) - new Date()
+        const expTimer = +new Date(expDate) - +new Date()
         if ( expTimer <= 0) { 
             console.log('authorizaton expired')
             logout()
@@ -47,7 +53,16 @@ export const useAuth = () => {
     }, [onExpiredLogout])
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(storageName))
+        
+        let data: StorageDataType = {token: '', userId: '', expired: 0}
+
+        //getItem return argument of type 'string | null' 
+        //which is not assignable to JSON.parse whithout type checking
+        const storageString = localStorage.getItem(storageName)
+        
+        if (typeof storageString === "string") {
+            data = JSON.parse(storageString)
+        } 
 
         if (data && data.token) {
             login(data.token, data.userId, data.expired)
