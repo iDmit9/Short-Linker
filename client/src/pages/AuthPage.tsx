@@ -5,6 +5,17 @@ import { AuthContext } from '../context/AuthContext'
 
 import { Form, Input, Button, Card, Row, Layout } from 'antd';
 
+type LoginResponseType = {
+  token: string, 
+  userId: string, 
+  expTime: number,
+  message?: string
+}
+
+type RegisterResponseType = {
+  message: string
+}
+
 export const AuthPage = () => {
   const auth = useContext(AuthContext)
   const message = useMessage()
@@ -18,40 +29,41 @@ export const AuthPage = () => {
     clearError()
   }, [error, message, clearError])
 
-  const changeHandler = event => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
   const registerHandler = async () => {
     try {
-      const data = await request('/api/auth/register', 'POST', { ...form })
+      const data: RegisterResponseType = await request('/api/auth/register', 'POST', { ...form })
       message(data.message)
     } catch (e) {
-
+      console.log('Registration error')
     }
   }
 
   const loginHandler = async () => {
     try {
-      const data = await request('/api/auth/login', 'POST', { ...form })
+      const data: LoginResponseType = await request('/api/auth/login', 'POST', { ...form })
       const expirationDate = new Date(new Date().getTime() + data.expTime * 1000)
+      console.log('login data ', data)
       auth.login(data.token, data.userId, expirationDate)
       message(data.message)
     } catch (e) {
-
+      console.log('Login error')
     }
   }
 
   const layout = {
-    labelCol: { span: 8, },
-    wrapperCol: { span: 16, },
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   }
 
   const tailLayout = {
     wrapperCol: {
       offset: 8,
-      span: 16,
-    },
+      span: 16
+    }
   }
 
   return (

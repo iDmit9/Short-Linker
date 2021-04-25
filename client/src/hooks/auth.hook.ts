@@ -38,7 +38,7 @@ export const useAuth = () => {
         }        
     }, [logout])  
 
-    const login = useCallback((jwtToken, id, expDate) => {
+    const login = useCallback((jwtToken:string, id:string, expDate:any):void => {
         setToken(jwtToken)
         setUserId(id)
         setExpiredAt(expDate)
