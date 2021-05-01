@@ -5,17 +5,7 @@ import { Layout, Row, Input, Col } from 'antd'
 import { useHttp } from '../hooks/http.hook'
 import { AuthContext } from '../context/AuthContext'
 
-export type LinkType = {
-    link: {
-        clicks: number
-        code: string
-        date: string
-        from: string
-        owner: string
-        to: string
-        _id: string
-    }    
-}
+import { LinkType } from '../types'
 
 export const CreatePage = () => {
     const history = useHistory()

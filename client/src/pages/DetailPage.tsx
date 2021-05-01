@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext'
 import { Loader } from '../components/Loader'
 import { LinkCard } from '../components/LinkCard'
 
-import { LinkType } from './CreatePage'
+import { LinkType } from '../types'
 
 type LinkParams = {
     id: string;

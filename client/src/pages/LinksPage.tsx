@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext'
 import { Loader } from '../components/Loader'
 import { LinksList } from '../components/LinksList'
 
-import { LinkType } from './CreatePage'
+import { LinkType } from '../types'
 
 export const LinksPage = () => {
     const [ links, setLinks ] = useState<Array<LinkType>>([])
