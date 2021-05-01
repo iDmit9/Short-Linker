@@ -8,7 +8,7 @@ import { AuthPage } from './pages/AuthPage'
 import { Navbar } from './components/Navbar';
 import { Layout } from 'antd';
 
-export const useRoutes = isAuthenticated => {
+export const useRoutes = (isAuthenticated: boolean) => {
     if (isAuthenticated) {
         return (
             <Layout>

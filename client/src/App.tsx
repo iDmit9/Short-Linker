@@ -20,7 +20,7 @@ function App() {
       token, login, logout, userId, isAuthenticated, expiredAt
     }}>
       <Router>
-            {routes}
+        {routes}
       </Router>
     </AuthContext.Provider>
   );

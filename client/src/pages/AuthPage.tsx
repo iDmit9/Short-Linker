@@ -46,7 +46,6 @@ export const AuthPage = () => {
     try {
       const data: LoginResponseType = await request('/api/auth/login', 'POST', { ...form })
       const expirationDate = new Date(new Date().getTime() + data.expTime * 1000)
-      console.log('login data ', data)
       auth.login(data.token, data.userId, expirationDate)
       message(data.message)
     } catch (e) {
