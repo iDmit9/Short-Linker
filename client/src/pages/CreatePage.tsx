@@ -7,6 +7,10 @@ import { AuthContext } from '../context/AuthContext'
 
 import { LinkType } from '../types'
 
+type GeneratedLinkType = {
+    link: LinkType
+}
+
 export const CreatePage = () => {
     const history = useHistory()
     const auth = useContext(AuthContext)
@@ -16,7 +20,7 @@ export const CreatePage = () => {
     const pressHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             try {
-                const data: LinkType = await request('/api/link/generate', 'POST', { from: link }, {
+                const data: GeneratedLinkType = await request('/api/link/generate', 'POST', { from: link }, {
                     Authorization: `Bearer ${auth.token}`
                 })
 

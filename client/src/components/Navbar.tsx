@@ -7,7 +7,7 @@ export const Navbar = () => {
   const history = useHistory()
   const auth = useContext(AuthContext)
 
-  const logoutHandler = event => {
+  const logoutHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     auth.logout()
     history.push('/')
@@ -16,7 +16,7 @@ export const Navbar = () => {
   return (
     <Layout.Header className='navbar'>
       <Row style={{ flexFlow: 'nowrap', height: 64 }}>
-        <h1 className="brand-logo" >ShortLinker</h1>
+        <h1 className="brand-logo">ShortLinker</h1>
         <Menu
           className='menu-row'
           theme="dark"

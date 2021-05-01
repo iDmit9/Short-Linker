@@ -1,7 +1,13 @@
 import React from 'react'
 import { Layout, Col } from 'antd'
 
-export const LinkCard = ({ link }) => {
+import { LinkType } from '../types'
+
+type LinkCardProps = {
+  link: LinkType 
+}
+
+export const LinkCard = ({ link }: LinkCardProps) => {
   return (
     <Layout.Content>
       <Col

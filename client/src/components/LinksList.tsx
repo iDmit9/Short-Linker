@@ -2,7 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, Table } from 'antd'
 
-export const LinksList = ({ links }) => {
+import { LinkType } from '../types'
+
+type LinksListProps = {
+   links: Array<LinkType>
+}
+
+export const LinksList = ({ links }: LinksListProps) => {
    if (!links.length) {
       return <p className="center">No links yet</p>
    }
@@ -22,7 +28,7 @@ export const LinksList = ({ links }) => {
          title: 'Open',
          dataIndex: '_id',
          key: '_id',
-         render: text => <Link to={`/detail/${text}`}>Open</Link>,
+         render: (text: string) => <Link to={`/detail/${text}`}>Open</Link>,
       },
    ];
 
